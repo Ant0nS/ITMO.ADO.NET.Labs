@@ -1,0 +1,10 @@
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\bin\Debug\ITMO.ADO.NET.Lab4.exe.config
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\bin\Debug\ITMO.ADO.NET.Lab4.exe
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\bin\Debug\ITMO.ADO.NET.Lab4.pdb
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\obj\Debug\ITMO.ADO.NET.Lab4.csprojAssemblyReference.cache
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\obj\Debug\ITMO.ADO.NET.Lab4.Form1.resources
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\obj\Debug\ITMO.ADO.NET.Lab4.Properties.Resources.resources
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\obj\Debug\ITMO.ADO.NET.Lab4.csproj.GenerateResource.cache
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\obj\Debug\ITMO.ADO.NET.Lab4.csproj.CoreCompileInputs.cache
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\obj\Debug\ITMO.ADO.NET.Lab4.exe
+C:\Users\anton\source\repos\Ant0nS\ITMO.ADO.NET.Lab\ITMO.ADO.NET.Lab4\ITMO.ADO.NET.Lab4\obj\Debug\ITMO.ADO.NET.Lab4.pdb
