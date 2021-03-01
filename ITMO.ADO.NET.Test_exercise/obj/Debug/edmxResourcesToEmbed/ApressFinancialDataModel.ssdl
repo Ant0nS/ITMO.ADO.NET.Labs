@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ApressFinancialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerTitleId" Type="int" Nullable="false" />
+    <Property Name="CustomerFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerOtherInitials" Type="nvarchar" MaxLength="10" />
+    <Property Name="CustomerLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AddressId" Type="bigint" Nullable="false" />
+    <Property Name="AccountNumber" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="AccountTypeId" Type="int" Nullable="false" />
+    <Property Name="CleareBalance" Type="money" Nullable="false" />
+    <Property Name="UncleareBalance" Type="money" Nullable="false" />
+    <Property Name="DateAdded" Type="date" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ApressFinancial.CustomerDetails.FinancialProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ApressFinancial.ShareDetails.SharePrices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Shares">
+    <Key>
+      <PropertyRef Name="ShareID" />
+    </Key>
+    <Property Name="ShareID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShareDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ShareTickerID" Type="nvarchar" MaxLength="50" />
+    <Property Name="CurrentPrice" Type="numeric" Precision="18" Scale="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerId" Type="bigint" Nullable="false" />
+    <Property Name="TransactionType" Type="int" Nullable="false" />
+    <Property Name="DateEntered" Type="datetime" Nullable="false" />
+    <Property Name="Amount" Type="numeric" Precision="18" Scale="5" Nullable="false" />
+    <Property Name="ReferenceDetails" Type="nvarchar" MaxLength="50" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="RelatedShareId" Type="bigint" />
+    <Property Name="RelatedProductId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Customers_Transactions">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transactions_Shares">
+    <End Role="Shares" Type="Self.Shares" Multiplicity="0..1" />
+    <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shares">
+        <PropertyRef Name="ShareID" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="RelatedShareId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ApressFinancialModelStoreContainer">
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="CustomerDetails" store:Type="Tables" />
+    <EntitySet Name="Shares" EntityType="Self.Shares" Schema="ShareDetails" store:Type="Tables" />
+    <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="TransactionDetails" store:Type="Tables" />
+    <AssociationSet Name="FK_Customers_Transactions" Association="Self.FK_Customers_Transactions">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transactions_Shares" Association="Self.FK_Transactions_Shares">
+      <End Role="Shares" EntitySet="Shares" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

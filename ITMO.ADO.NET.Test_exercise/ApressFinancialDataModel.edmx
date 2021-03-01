@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ApressFinancialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerTitleId" Type="int" Nullable="false" />
+          <Property Name="CustomerFirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerOtherInitials" Type="nvarchar" MaxLength="10" />
+          <Property Name="CustomerLastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressId" Type="bigint" Nullable="false" />
+          <Property Name="AccountNumber" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="AccountTypeId" Type="int" Nullable="false" />
+          <Property Name="CleareBalance" Type="money" Nullable="false" />
+          <Property Name="UncleareBalance" Type="money" Nullable="false" />
+          <Property Name="DateAdded" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ApressFinancial.CustomerDetails.FinancialProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ApressFinancial.ShareDetails.SharePrices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Shares">
+          <Key>
+            <PropertyRef Name="ShareID" />
+          </Key>
+          <Property Name="ShareID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShareDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShareTickerID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurrentPrice" Type="numeric" Precision="18" Scale="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="bigint" Nullable="false" />
+          <Property Name="TransactionType" Type="int" Nullable="false" />
+          <Property Name="DateEntered" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="numeric" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="ReferenceDetails" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="RelatedShareId" Type="bigint" />
+          <Property Name="RelatedProductId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Customers_Transactions">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Shares">
+          <End Role="Shares" Type="Self.Shares" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shares">
+              <PropertyRef Name="ShareID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="RelatedShareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApressFinancialModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="CustomerDetails" store:Type="Tables" />
+          <EntitySet Name="Shares" EntityType="Self.Shares" Schema="ShareDetails" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="TransactionDetails" store:Type="Tables" />
+          <AssociationSet Name="FK_Customers_Transactions" Association="Self.FK_Customers_Transactions">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Shares" Association="Self.FK_Transactions_Shares">
+            <End Role="Shares" EntitySet="Shares" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ApressFinancialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerTitleId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerOtherInitials" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AddressId" Type="Int64" Nullable="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="AccountTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CleareBalance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UncleareBalance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Customers_Transactions" FromRole="Customers" ToRole="Transactions" />
+        </EntityType>
+        <EntityType Name="Share">
+          <Key>
+            <PropertyRef Name="ShareID" />
+          </Key>
+          <Property Name="ShareID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShareDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShareTickerID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentPrice" Type="Decimal" Precision="18" Scale="5" Nullable="false" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_Shares" FromRole="Shares" ToRole="Transactions" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int64" Nullable="false" />
+          <Property Name="TransactionType" Type="Int32" Nullable="false" />
+          <Property Name="DateEntered" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="5" Nullable="false" />
+          <Property Name="ReferenceDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RelatedShareId" Type="Int64" />
+          <Property Name="RelatedProductId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Customers_Transactions" FromRole="Transactions" ToRole="Customers" />
+          <NavigationProperty Name="Share" Relationship="Self.FK_Transactions_Shares" FromRole="Transactions" ToRole="Shares" />
+        </EntityType>
+        <Association Name="FK_Customers_Transactions">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Shares">
+          <End Role="Shares" Type="Self.Share" Multiplicity="0..1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shares">
+              <PropertyRef Name="ShareID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="RelatedShareId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApressFinancialEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Shares" EntityType="Self.Share" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <AssociationSet Name="FK_Customers_Transactions" Association="Self.FK_Customers_Transactions">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Shares" Association="Self.FK_Transactions_Shares">
+            <End Role="Shares" EntitySet="Shares" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ApressFinancialModelStoreContainer" CdmEntityContainer="ApressFinancialEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ApressFinancialModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerTitleId" ColumnName="CustomerTitleId" />
+                <ScalarProperty Name="CustomerFirstName" ColumnName="CustomerFirstName" />
+                <ScalarProperty Name="CustomerOtherInitials" ColumnName="CustomerOtherInitials" />
+                <ScalarProperty Name="CustomerLastName" ColumnName="CustomerLastName" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="AccountTypeId" ColumnName="AccountTypeId" />
+                <ScalarProperty Name="CleareBalance" ColumnName="CleareBalance" />
+                <ScalarProperty Name="UncleareBalance" ColumnName="UncleareBalance" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shares">
+            <EntityTypeMapping TypeName="ApressFinancialModel.Share">
+              <MappingFragment StoreEntitySet="Shares">
+                <ScalarProperty Name="ShareID" ColumnName="ShareID" />
+                <ScalarProperty Name="ShareDesc" ColumnName="ShareDesc" />
+                <ScalarProperty Name="ShareTickerID" ColumnName="ShareTickerID" />
+                <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="ApressFinancialModel.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ReferenceDetails" ColumnName="ReferenceDetails" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="RelatedShareId" ColumnName="RelatedShareId" />
+                <ScalarProperty Name="RelatedProductId" ColumnName="RelatedProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

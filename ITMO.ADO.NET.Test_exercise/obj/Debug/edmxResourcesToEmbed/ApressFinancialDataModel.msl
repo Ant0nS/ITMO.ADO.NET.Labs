@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ApressFinancialModelStoreContainer" CdmEntityContainer="ApressFinancialEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="ApressFinancialModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CustomerTitleId" ColumnName="CustomerTitleId" />
+          <ScalarProperty Name="CustomerFirstName" ColumnName="CustomerFirstName" />
+          <ScalarProperty Name="CustomerOtherInitials" ColumnName="CustomerOtherInitials" />
+          <ScalarProperty Name="CustomerLastName" ColumnName="CustomerLastName" />
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+          <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+          <ScalarProperty Name="AccountTypeId" ColumnName="AccountTypeId" />
+          <ScalarProperty Name="CleareBalance" ColumnName="CleareBalance" />
+          <ScalarProperty Name="UncleareBalance" ColumnName="UncleareBalance" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shares">
+      <EntityTypeMapping TypeName="ApressFinancialModel.Share">
+        <MappingFragment StoreEntitySet="Shares">
+          <ScalarProperty Name="ShareID" ColumnName="ShareID" />
+          <ScalarProperty Name="ShareDesc" ColumnName="ShareDesc" />
+          <ScalarProperty Name="ShareTickerID" ColumnName="ShareTickerID" />
+          <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="ApressFinancialModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="ReferenceDetails" ColumnName="ReferenceDetails" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="RelatedShareId" ColumnName="RelatedShareId" />
+          <ScalarProperty Name="RelatedProductId" ColumnName="RelatedProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
